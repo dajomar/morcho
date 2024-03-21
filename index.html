@@ -215,7 +215,7 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         valorPrenda         = Math.round(precioOro * ( numeroKilates / GOLD_PURE ) *  pesoPieza); 
         earn                = Math.round( ( valorPrenda * ( porcVenta / 100  )) ); 
         precioVentaFinal    = valorPrenda + earn; 
-        porcVenta           = ((valorPieza / valorPrenda) - 1) * 100; 
+        porcVenta           = Math.round(((valorPieza / valorPrenda) - 1) * 100); 
 
         gananciaCad         = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP) * ( porcVentaCAD / 100  ) ); 
         precioVentaFinalCAD = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP) + gananciaCad ); 
