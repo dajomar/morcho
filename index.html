@@ -115,6 +115,9 @@
         <label for="kilates">Weight of piece</label>
         <input type="text" value="" name="Weight" id="Weight">
 
+        <label for="kilates">valor de la pieza</label>
+        <input type="text" value="" name="valorPieza" id="valorPieza">
+
         <label for="kilates">Porcentaje de venta</label>
         <input type="text" value="" name="venta" id="venta">
 
@@ -132,6 +135,7 @@
             <p class="error">Ganancia Proveedor:     <span id="id-earn" >...</span> </p>
             <p>Precio kl trabajado: <span id="prix-kl-trabajado" >...</span> </p>
             <p>Precio kl total trabajado: <span id="prix-kl-tot-trabajado" >...</span> </p>
+            <p>Porc venta: <span id="porcentaje-venta" >...</span> </p>
             <p class="success">Precio de Venta Final: <span id="id-sales-price" >...</span></p>
 
         </div>
@@ -171,11 +175,12 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
     const GOLD_PURE = 24; 
     //const DOLAR_CA_TO_COP  = 2900;
 
-    const DOLAR_CA_TO_COP = document.querySelector('#value-cad').value * 1; 
+    
     
         
    
     const calcularPrecio = () => {
+        const DOLAR_CA_TO_COP = document.querySelector('#value-cad').value * 1; 
 
         let precioOro           = 0; 
         let numeroKilates       = 0; 
@@ -183,18 +188,20 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         let precioKilate        = 0; 
         let valorPrenda         = 0; 
         let porcVenta           = 0; 
+        let porcVenta1          = 0; 
         let porcVentaCAD        = 0; 
         let earn                = 0;
         let gananciaCad         = 0; 
         let precioVentaFinal    = 0; 
         let precioVentaFinalCAD = 0;
-        
+        let valorPieza          = 0; 
 
         precioOro     = document.querySelector('#gold-id').value * 1; 
         numeroKilates = document.querySelector('#kilates').value * 1; 
         pesoPieza     = document.querySelector('#Weight').value * 1; 
-        porcVenta     = document.querySelector('#venta').value * 1; 
+        porcVenta1     = document.querySelector('#venta').value * 1; 
         porcVentaCAD  = document.querySelector('#venta-cad').value * 1; 
+        valorPieza  = document.querySelector('#valorPieza').value * 1; 
         
 
         
@@ -208,6 +215,7 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         valorPrenda         = Math.round(precioOro * ( numeroKilates / GOLD_PURE ) *  pesoPieza); 
         earn                = Math.round( ( valorPrenda * ( porcVenta / 100  )) ); 
         precioVentaFinal    = valorPrenda + earn; 
+        porcVenta           = ((valorPieza / valorPrenda) - 1) * 100; 
 
         gananciaCad         = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP) * ( porcVentaCAD / 100  ) ); 
         precioVentaFinalCAD = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP) + gananciaCad ); 
@@ -219,6 +227,7 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         document.querySelector('#prix-kl-trabajado').innerText      = Math.round(precioVentaFinal / pesoPieza) - precioKilate; 
         document.querySelector('#prix-kl-tot-trabajado').innerText  = Math.round(precioVentaFinal / pesoPieza); 
         document.querySelector('#id-sales-price').innerText         = precioVentaFinal; 
+        document.querySelector('#porcentaje-venta').innerText         = porcVenta; 
 
         /* mi ganancia */
 
@@ -250,6 +259,7 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         document.querySelector('#prix-kl-trabajado').innerText   = '...';
         document.querySelector('#prix-kl-tot-trabajado').innerText   = '...';
         document.querySelector('#id-sales-price').innerText = '...'; 
+        document.querySelector('#porcentaje-venta').innerText= '...'; 
 
         document.querySelector('#prix-kl-cad').innerText        = '...'; 
         document.querySelector('#valor-prenda-cad').innerText   = '...'; 
@@ -257,6 +267,7 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         document.querySelector('#prix-kl-trabajado-cad').innerText   = '...';
         document.querySelector('#prix-kl-tot-trabajado-cad').innerText   = '...';
         document.querySelector('#id-sales-price-cad').innerText = '...'; 
+        
 
 
     }
