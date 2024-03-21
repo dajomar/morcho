@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario Profesional</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 100vh; */
+        background-color: #f9f9f9;
+    }
+    form {
+        width: 400px;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 24px;
+        text-align: center;
+    }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #666;
+        font-size: 14px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /*button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    } */
+    button[type="reset"] {
+        background-color: #dc3545;
+        color: #fff;
+        
+    }
+    button[type="reset"]:hover {
+        background-color: #c82333;
+        cursor: pointer;
+    }
+
+    .message {
+        margin-top: 5px;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        text-align: left;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #919191;
+        margin-bottom: 20px;
+
+    }
+    .error {
+        /*background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;*/
+        color: #8e2a34;
+    }
+    .success {
+       /* background-color: #d4edda; */
+        /* color: #155724;*/
+        color: #199335;
+        /* border: 1px solid #c3e6cb; */
+    }
+</style>
+</head>
+<body>
+    <form>
+        <h2>Calculador de Oro</h2>
+
+        <label for="name">Precio del oro (24K -gr)</label>
+        <input type="text" id="gold-id" name="gold-id">
+
+        <label for="kilates">Número de kilates</label>
+        <input type="text" value="18" name="kilates" id="kilates">
+        
+        <label for="kilates">Weight of piece</label>
+        <input type="text" value="" name="Weight" id="Weight">
+
+        <label for="kilates">Porcentaje de venta</label>
+        <input type="text" value="" name="venta" id="venta">
+
+        <label for="kilates">Porcentaje de venta CAD</label>
+        <input type="text" value="" name="venta-cad" id="venta-cad">
+
+        <label for="kilates"> CAD to COP</label>
+        <input type="text" value="2900" name="value-cad" id="value-cad">
+        
+                
+        <div class="message">
+            <h4>Precio COL</h4>
+            <p>Precio kilates: <span id="prix-kl" >...</span> </p>
+            <p>Valor Prenda:   <span id="valor-prenda">...</span> </p>
+            <p class="error">Ganancia Proveedor:     <span id="id-earn" >...</span> </p>
+            <p>Precio kl trabajado: <span id="prix-kl-trabajado" >...</span> </p>
+            <p>Precio kl total trabajado: <span id="prix-kl-tot-trabajado" >...</span> </p>
+            <p class="success">Precio de Venta Final: <span id="id-sales-price" >...</span></p>
+
+        </div>
+
+        <div class="message">
+            <h4>Precio CAD</h4>
+            <p>Precio kilates: <span id="prix-kl-cad" >...</span> </p>
+            <p>Valor Prenda:   <span id="valor-prenda-cad">...</span> </p>
+            <p class="error">Ganancia Mia:     <span id="id-earn-cad" >...</span> </p>
+            <p>Precio kl trabajado: <span id="prix-kl-trabajado-cad" >...</span> </p>
+            <p>Precio kl total trabajado: <span id="prix-kl-tot-trabajado-cad" >...</span> </p>
+            <p class="success">Precio de Venta Final: <span id="id-sales-price-cad" >...</span></p>
+
+        </div>
+
+        <button type="button" id="btnCalcular">Calcular</button>
+        <button type="reset" class="" id="btnReset">Reset</button>
+    </form>
+</body>
+
+    <!-- 
+
+
+Si solo tienes el precio del oro de 24 kilates por gramo y deseas calcular el valor de oro de una 
+pieza con una pureza diferente, como 18 kilates, puedes ajustar la fórmula para reflejar la pureza 
+específica. 
+
+Aquí está la fórmula ajustada:
+
+Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Peso en Gramos
+
+     --> 
+
+<script>
+
+    
+    const GOLD_PURE = 24; 
+    //const DOLAR_CA_TO_COP  = 2900;
+
+    const DOLAR_CA_TO_COP = document.querySelector('#value-cad').value * 1; 
+    
+        
+   
+    const calcularPrecio = () => {
+
+        let precioOro           = 0; 
+        let numeroKilates       = 0; 
+        let pesoPieza           = 0; 
+        let precioKilate        = 0; 
+        let valorPrenda         = 0; 
+        let porcVenta           = 0; 
+        let porcVentaCAD        = 0; 
+        let earn                = 0;
+        let gananciaCad         = 0; 
+        let precioVentaFinal    = 0; 
+        let precioVentaFinalCAD = 0;
+        
+
+        precioOro     = document.querySelector('#gold-id').value * 1; 
+        numeroKilates = document.querySelector('#kilates').value * 1; 
+        pesoPieza     = document.querySelector('#Weight').value * 1; 
+        porcVenta     = document.querySelector('#venta').value * 1; 
+        porcVentaCAD  = document.querySelector('#venta-cad').value * 1; 
+        
+
+        
+
+        if( !precioOro || !numeroKilates ||  !pesoPieza ){
+            console.log('Por favor introduzca los valores correctos.' );
+            return; 
+        } 
+
+        precioKilate        = Math.round(precioOro * ( numeroKilates / GOLD_PURE ) );
+        valorPrenda         = Math.round(precioOro * ( numeroKilates / GOLD_PURE ) *  pesoPieza); 
+        earn                = Math.round( ( valorPrenda * ( porcVenta / 100  )) ); 
+        precioVentaFinal    = valorPrenda + earn; 
+
+        gananciaCad         = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP) * ( porcVentaCAD / 100  ) ); 
+        precioVentaFinalCAD = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP) + gananciaCad ); 
+
+
+        document.querySelector('#prix-kl').innerText                = precioKilate; 
+        document.querySelector('#valor-prenda').innerText           = valorPrenda; 
+        document.querySelector('#id-earn').innerText                = earn; 
+        document.querySelector('#prix-kl-trabajado').innerText      = Math.round(precioVentaFinal / pesoPieza) - precioKilate; 
+        document.querySelector('#prix-kl-tot-trabajado').innerText  = Math.round(precioVentaFinal / pesoPieza); 
+        document.querySelector('#id-sales-price').innerText         = precioVentaFinal; 
+
+        /* mi ganancia */
+
+        document.querySelector('#prix-kl-cad').innerText                = Math.round( (precioKilate / DOLAR_CA_TO_COP ) );  
+        document.querySelector('#valor-prenda-cad').innerText           = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP ) ); 
+        document.querySelector('#id-earn-cad').innerText                = gananciaCad ; 
+        document.querySelector('#prix-kl-trabajado-cad').innerText      = Math.round(precioVentaFinalCAD / pesoPieza) - Math.round( (precioKilate / DOLAR_CA_TO_COP ) ); 
+        document.querySelector('#prix-kl-tot-trabajado-cad').innerText  = Math.round(precioVentaFinalCAD / pesoPieza); 
+        document.querySelector('#id-sales-price-cad').innerText         = precioVentaFinalCAD; 
+
+        
+
+
+
+        console.log( 'Valor del oro: '+ valorPrenda );
+
+    }
+
+    const resetForm = () => {
+
+        document.querySelector('#gold-id').value = 0; 
+        document.querySelector('#kilates').value = 18; 
+        document.querySelector('#Weight').value = 0; 
+        document.querySelector('#venta').value = 0; 
+
+        document.querySelector('#prix-kl').innerText        = '...'; 
+        document.querySelector('#valor-prenda').innerText   = '...'; 
+        document.querySelector('#id-earn').innerText        = '...';  
+        document.querySelector('#prix-kl-trabajado').innerText   = '...';
+        document.querySelector('#prix-kl-tot-trabajado').innerText   = '...';
+        document.querySelector('#id-sales-price').innerText = '...'; 
+
+        document.querySelector('#prix-kl-cad').innerText        = '...'; 
+        document.querySelector('#valor-prenda-cad').innerText   = '...'; 
+        document.querySelector('#id-earn-cad').innerText        = '...';
+        document.querySelector('#prix-kl-trabajado-cad').innerText   = '...';
+        document.querySelector('#prix-kl-tot-trabajado-cad').innerText   = '...';
+        document.querySelector('#id-sales-price-cad').innerText = '...'; 
+
+
+    }
+
+
+            
+    document.querySelector('#btnCalcular').addEventListener( 'click',calcularPrecio,true ); 
+    document.querySelector('#btnReset').addEventListener( 'click',resetForm,true ); 
+
+
+
+</script>
+</html>
