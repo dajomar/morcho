@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulario Profesional</title>
+<title>Calculadora Morcho</title>
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -115,11 +115,11 @@
         <label for="kilates">Weight of piece</label>
         <input type="text" value="" name="Weight" id="Weight">
 
-        <label for="kilates">valor de la pieza</label>
+        <label for="kilates">Valor de la pieza</label>
         <input type="text" value="" name="valorPieza" id="valorPieza">
 
-        <label for="kilates">Porcentaje de venta</label>
-        <input type="text" value="" name="venta" id="venta">
+        <!-- <label for="kilates">Porcentaje de venta</label>
+        <input type="text" value="" name="venta" id="venta"> -->
 
         <label for="kilates">Porcentaje de venta CAD</label>
         <input type="text" value="" name="venta-cad" id="venta-cad">
@@ -188,7 +188,6 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         let precioKilate        = 0; 
         let valorPrenda         = 0; 
         let porcVenta           = 0; 
-        let porcVenta1          = 0; 
         let porcVentaCAD        = 0; 
         let earn                = 0;
         let gananciaCad         = 0; 
@@ -199,7 +198,7 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         precioOro     = document.querySelector('#gold-id').value * 1; 
         numeroKilates = document.querySelector('#kilates').value * 1; 
         pesoPieza     = document.querySelector('#Weight').value * 1; 
-        porcVenta1     = document.querySelector('#venta').value * 1; 
+        // porcVenta1     = document.querySelector('#venta').value * 1; 
         porcVentaCAD  = document.querySelector('#venta-cad').value * 1; 
         valorPieza  = document.querySelector('#valorPieza').value * 1; 
         
@@ -212,22 +211,23 @@ Valor del Oro = Precio del Oro de 24K por Gramo × ( Pureza del Oro / 24 ) × Pe
         } 
 
         precioKilate        = Math.round(precioOro * ( numeroKilates / GOLD_PURE ) );
-        valorPrenda         = Math.round(precioOro * ( numeroKilates / GOLD_PURE ) *  pesoPieza); 
-        earn                = Math.round( ( valorPrenda * ( porcVenta / 100  )) ); 
+        valorPrenda         = Math.round(precioOro * ( numeroKilates / GOLD_PURE ) *  pesoPieza);
+        //earn                = Math.round( ( valorPrenda * ( porcVenta / 100  )) ); 
+        earn                = valorPieza - valorPrenda; 
+        porcVenta           = Math.round( ( (valorPieza - valorPrenda) / valorPrenda ) * 100); 
         precioVentaFinal    = valorPrenda + earn; 
-        porcVenta           = Math.round(((valorPieza / valorPrenda) - 1) * 100); 
 
         gananciaCad         = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP) * ( porcVentaCAD / 100  ) ); 
         precioVentaFinalCAD = Math.round( (precioVentaFinal / DOLAR_CA_TO_COP) + gananciaCad ); 
 
 
-        document.querySelector('#prix-kl').innerText                = precioKilate; 
-        document.querySelector('#valor-prenda').innerText           = valorPrenda; 
-        document.querySelector('#id-earn').innerText                = earn; 
-        document.querySelector('#prix-kl-trabajado').innerText      = Math.round(precioVentaFinal / pesoPieza) - precioKilate; 
-        document.querySelector('#prix-kl-tot-trabajado').innerText  = Math.round(precioVentaFinal / pesoPieza); 
-        document.querySelector('#id-sales-price').innerText         = precioVentaFinal; 
-        document.querySelector('#porcentaje-venta').innerText         = porcVenta; 
+        document.querySelector('#prix-kl').innerText                    = precioKilate; 
+        document.querySelector('#valor-prenda').innerText               = valorPrenda; 
+        document.querySelector('#id-earn').innerText                    = earn; 
+        document.querySelector('#prix-kl-trabajado').innerText          = Math.round(precioVentaFinal / pesoPieza) - precioKilate; 
+        document.querySelector('#prix-kl-tot-trabajado').innerText      = Math.round(precioVentaFinal / pesoPieza); 
+        document.querySelector('#id-sales-price').innerText             = precioVentaFinal; 
+        document.querySelector('#porcentaje-venta').innerText           = porcVenta; 
 
         /* mi ganancia */
 
